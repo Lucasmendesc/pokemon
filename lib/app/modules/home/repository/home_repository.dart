@@ -5,7 +5,11 @@ class HomeRepository {
 
   Future getPokemon() async {
     final response = await dioConnection.dio.get('pokemon');
-    print(response);
+    return response.data;
+  }
+
+  Future getPokemonData({required String pokemonId}) async {
+    final response = await dioConnection.dio.get('pokemon/$pokemonId');
     return response.data;
   }
 }
