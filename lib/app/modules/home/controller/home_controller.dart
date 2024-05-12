@@ -21,6 +21,13 @@ abstract class HomeControllerBase with Store {
     pokemonList = await _homeService.getPokemon();
   }
 
+  Future<void> getPokemonWithPokemonData() async {
+    await getPokemon();
+    for (var pokemon in pokemonList) {
+      pokemon.pokemonDataModel = await getPokemonData(url: pokemon.url);
+    }
+  }
+
   Future<PokemonDataModel> getPokemonData({required String url}) async {
     return await _homeService.getPokemonData(url: url);
   }
