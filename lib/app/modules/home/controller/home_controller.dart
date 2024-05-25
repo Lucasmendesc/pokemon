@@ -16,15 +16,23 @@ abstract class HomeControllerBase with Store {
   @observable
   List<PokemonModel> pokemonList = [];
 
+  @observable
+  bool isLoading = false;
+
   @action
   Future<void> getPokemon() async {
     pokemonList = await _homeService.getPokemon();
   }
 
   Future<void> getPokemonWithPokemonData() async {
-    await getPokemon();
-    for (var pokemon in pokemonList) {
-      pokemon.pokemonDataModel = await getPokemonData(url: pokemon.url);
+    try {
+      isLoading = true;
+      await getPokemon();
+      for (var pokemon in pokemonList) {
+        pokemon.pokemonDataModel = await getPokemonData(url: pokemon.url);
+      }
+    } finally {
+      isLoading = false;
     }
   }
 

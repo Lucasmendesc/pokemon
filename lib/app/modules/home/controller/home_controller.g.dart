@@ -41,6 +41,22 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: 'HomeControllerBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$getPokemonAsyncAction =
       AsyncAction('HomeControllerBase.getPokemon', context: context);
 
@@ -53,7 +69,8 @@ mixin _$HomeController on HomeControllerBase, Store {
   String toString() {
     return '''
 selectedPokemon: ${selectedPokemon},
-pokemonList: ${pokemonList}
+pokemonList: ${pokemonList},
+isLoading: ${isLoading}
     ''';
   }
 }

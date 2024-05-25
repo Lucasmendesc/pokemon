@@ -25,6 +25,11 @@ class _HomepageState extends State<HomePage> {
         children: [
           Expanded(
             child: Observer(builder: (context) {
+              if (_homeController.isLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               return ListView.builder(
                 itemCount: _homeController.pokemonList.length,
                 itemBuilder: (context, index) {
