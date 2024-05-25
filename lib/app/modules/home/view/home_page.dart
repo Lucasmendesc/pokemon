@@ -36,9 +36,14 @@ class _HomepageState extends State<HomePage> {
                   return Column(
                     children: [
                       Text(_homeController.pokemonList[index].name),
-                      Image.network(_homeController
-                              .pokemonList[index].pokemonDataModel?.image ??
-                          ""),
+                      Observer(builder: (context) {
+                        if (_homeController.isLoading) {
+                          return const CircularProgressIndicator();
+                        }
+                        return Image.network(_homeController
+                                .pokemonList[index].pokemonDataModel?.image ??
+                            "");
+                      }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
